@@ -13,6 +13,7 @@ import com.victorminerva.cursomc.domain.Cidade;
 import com.victorminerva.cursomc.domain.Cliente;
 import com.victorminerva.cursomc.domain.Endereco;
 import com.victorminerva.cursomc.domain.Estado;
+import com.victorminerva.cursomc.domain.ItemPedido;
 import com.victorminerva.cursomc.domain.Pagamento;
 import com.victorminerva.cursomc.domain.PagamentoComBoleto;
 import com.victorminerva.cursomc.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.victorminerva.cursomc.repositories.CidadeRepository;
 import com.victorminerva.cursomc.repositories.ClienteRepository;
 import com.victorminerva.cursomc.repositories.EnderecoRepository;
 import com.victorminerva.cursomc.repositories.EstadoRepository;
+import com.victorminerva.cursomc.repositories.ItemPedidoRepository;
 import com.victorminerva.cursomc.repositories.PagamentoRepository;
 import com.victorminerva.cursomc.repositories.PedidoRepository;
 import com.victorminerva.cursomc.repositories.ProdutoRepository;
@@ -46,15 +48,18 @@ public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
 	private ClienteRepository clienteRepo;
-	
+
 	@Autowired
 	private EnderecoRepository enderecoRepo;
-	
+
 	@Autowired
 	private PedidoRepository pedidoRepo;
-	
+
 	@Autowired
 	private PagamentoRepository pagamentoRepo;
+
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -111,15 +116,28 @@ public class CursomcApplication implements CommandLineRunner {
 
 		Pagamento pgto1 = new PagamentoComCartao(null, EstadoPagamento.QUITADO, ped1, 6);
 		ped1.setPagamento(pgto1);
-		
-		Pagamento pgto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2018 00:00"), null);
+
+		Pagamento pgto2 = new PagamentoComBoleto(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("20/10/2018 00:00"),
+				null);
 		ped2.setPagamento(pgto2);
-		
+
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
-		
+
 		pedidoRepo.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepo.saveAll(Arrays.asList(pgto1, pgto2));
-		
-		
+
+		/**/
+		ItemPedido item1 = new ItemPedido(ped1, prod1, 0.00, 1, 2000.00);
+		ItemPedido item2 = new ItemPedido(ped1, prod3, 0.00, 2, 80.00);
+		ItemPedido item3 = new ItemPedido(ped2, prod2, 100.00, 1, 800.00);
+
+		ped1.getItens().addAll(Arrays.asList(item1, item2));
+		ped2.getItens().addAll(Arrays.asList(item3));
+
+		prod1.getItens().addAll(Arrays.asList(item1));
+		prod2.getItens().addAll(Arrays.asList(item3));
+		prod3.getItens().addAll(Arrays.asList(item2));
+
+		itemPedidoRepo.saveAll(Arrays.asList(item1, item2, item3));
 	}
 }
