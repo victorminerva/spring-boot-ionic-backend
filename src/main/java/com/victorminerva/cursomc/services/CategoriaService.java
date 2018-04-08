@@ -25,4 +25,10 @@ public class CategoriaService {
 		categoria.setId(null);
 		return categoriaRepo.save(categoria);
 	}
+
+	public Categoria update(Categoria categoria) {
+		findById(categoria.getId());
+		
+		return categoriaRepo.save(categoria);
+	}
 }
