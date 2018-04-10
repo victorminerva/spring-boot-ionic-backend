@@ -17,7 +17,6 @@ import com.victorminerva.cursomc.domain.Endereco;
 import com.victorminerva.cursomc.domain.enums.TipoCliente;
 import com.victorminerva.cursomc.dto.ClienteDTO;
 import com.victorminerva.cursomc.dto.ClienteNewDTO;
-import com.victorminerva.cursomc.repositories.CidadeRepository;
 import com.victorminerva.cursomc.repositories.ClienteRepository;
 import com.victorminerva.cursomc.repositories.EnderecoRepository;
 import com.victorminerva.cursomc.services.exception.DataIntegrityException;
