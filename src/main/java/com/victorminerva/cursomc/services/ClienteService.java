@@ -34,7 +34,7 @@ public class ClienteService {
 	public Cliente findById(Integer id) {
 		Optional<Cliente> categ = clienteRepo.findById(id);
 		return categ.orElseThrow(() -> new ObjectNotFoundException(
-				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
+				"Cliente não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
 	@Transactional
@@ -60,7 +60,7 @@ public class ClienteService {
 		try {
 			clienteRepo.deleteById(id);
 		} catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possível excluir porque há entidades relacionadas.");
+			throw new DataIntegrityException("Não é possível excluir porque há pedidos relacionadas.");
 		}
 	}
 
@@ -73,6 +73,8 @@ public class ClienteService {
 		
 		return clienteRepo.findAll(pageReq);
 	}
+	
+	/**/
 	
 	public Cliente fromDTO(ClienteDTO clienteDTO) {
 		return new Cliente(clienteDTO.getId(), clienteDTO.getNome(), clienteDTO.getEmail(), null, null);
