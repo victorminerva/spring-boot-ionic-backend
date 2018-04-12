@@ -78,16 +78,37 @@ public class CursomcApplication implements CommandLineRunner {
 		Produto prod1 = new Produto(null, "Computador", 2000.00);
 		Produto prod2 = new Produto(null, "Impressora", 800.00);
 		Produto prod3 = new Produto(null, "Mouse", 80.00);
+		Produto prod4 = new Produto(null, "Mesa de escritório", 80.00);
+		Produto prod5 = new Produto(null, "Toalha", 80.00);
+		Produto prod6 = new Produto(null, "Colcha", 80.00);
+		Produto prod7 = new Produto(null, "TV true color", 80.00);
+		Produto prod8 = new Produto(null, "Roçadeira", 80.00);
+		Produto prod9 = new Produto(null, "Abajour", 80.00);
+		Produto prod10 = new Produto(null, "Pendente", 80.00);
+		Produto prod11 = new Produto(null, "Shampoo", 80.00);
 
 		categ1.getProdutos().addAll(Arrays.asList(prod1, prod2, prod3));
-		categ1.getProdutos().addAll(Arrays.asList(prod2));
+		categ2.getProdutos().addAll(Arrays.asList(prod2, prod4));
+		categ3.getProdutos().addAll(Arrays.asList(prod5, prod6));
+		categ4.getProdutos().addAll(Arrays.asList(prod1, prod2, prod3, prod7));
+		categ5.getProdutos().addAll(Arrays.asList(prod8));
+		categ6.getProdutos().addAll(Arrays.asList(prod9, prod10));
+		categ7.getProdutos().addAll(Arrays.asList(prod11));
 
-		prod1.getCategorias().addAll(Arrays.asList(categ1));
-		prod2.getCategorias().addAll(Arrays.asList(categ1, categ2));
-		prod3.getCategorias().addAll(Arrays.asList(categ1));
+		prod1.getCategorias().addAll(Arrays.asList(categ1, categ4));
+		prod2.getCategorias().addAll(Arrays.asList(categ1, categ2, categ4));
+		prod3.getCategorias().addAll(Arrays.asList(categ1, categ4));
+		prod4.getCategorias().addAll(Arrays.asList(categ2));
+		prod5.getCategorias().addAll(Arrays.asList(categ3));
+		prod6.getCategorias().addAll(Arrays.asList(categ3));
+		prod7.getCategorias().addAll(Arrays.asList(categ4));
+		prod8.getCategorias().addAll(Arrays.asList(categ5));
+		prod9.getCategorias().addAll(Arrays.asList(categ6));
+		prod10.getCategorias().addAll(Arrays.asList(categ6));
+		prod11.getCategorias().addAll(Arrays.asList(categ7));
 
 		categoriaRepo.saveAll(Arrays.asList(categ1, categ2, categ3, categ4, categ5, categ6, categ7));
-		produtoRepo.saveAll(Arrays.asList(prod1, prod2, prod3));
+		produtoRepo.saveAll(Arrays.asList(prod1, prod2, prod3, prod4, prod5, prod6, prod7, prod8, prod9, prod10, prod11));
 
 		/**/
 		Estado est1 = new Estado(null, "Ceará");
