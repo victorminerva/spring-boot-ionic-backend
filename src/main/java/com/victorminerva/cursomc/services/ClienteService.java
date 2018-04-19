@@ -49,8 +49,8 @@ public class ClienteService {
 			throw new AuthorizationException("Acesso negado.");
 		}
 		
-		Optional<Cliente> categ = clienteRepo.findById(id);
-		return categ.orElseThrow(() -> new ObjectNotFoundException(
+		Optional<Cliente> cliente = clienteRepo.findById(id);
+		return cliente.orElseThrow(() -> new ObjectNotFoundException(
 				"Cliente não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
 	}
 	
@@ -127,6 +127,17 @@ public class ClienteService {
 	}
 	
 	public URI uploadProfilePicture(MultipartFile multipartFile) {
-		return s3Service.uploadFile(multipartFile);
+		UserSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado.");
+		}
+
+		URI uri = s3Service.uploadFile(multipartFile);
+
+		Optional<Cliente> cliente = clienteRepo.findById(user.getId());
+		cliente.get().setImageUrl(uri.toString());
+
+		clienteRepo.save(cliente.get());
+		return uri;
 	}
 }

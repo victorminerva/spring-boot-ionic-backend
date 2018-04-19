@@ -39,7 +39,7 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 
 	private Integer tipo;
-	
+
 	@JsonIgnore
 	private String senha;
 
@@ -50,20 +50,21 @@ public class Cliente implements Serializable {
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
 
-	@ElementCollection(fetch=FetchType.EAGER)
-	@CollectionTable(name = "PERFIS")	
+	@ElementCollection(fetch = FetchType.EAGER)
+	@CollectionTable(name = "PERFIS")
 	private Set<Integer> perfis = new HashSet<>();
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
+
+	private String imageUrl;
 
 	public Cliente() {
 		this.addPerfil(Perfil.CLIENTE);
 	}
 
 	public Cliente(Integer id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
-		super();
 		this.id = id;
 		this.nome = nome;
 		this.email = email;
@@ -112,7 +113,7 @@ public class Cliente implements Serializable {
 	public void setTipo(TipoCliente tipo) {
 		this.tipo = tipo.getCodigo();
 	}
-	
+
 	public String getSenha() {
 		return senha;
 	}
@@ -136,7 +137,7 @@ public class Cliente implements Serializable {
 	public void setTelefones(Set<String> telefones) {
 		this.telefones = telefones;
 	}
-	
+
 	public Set<Perfil> getPerfis() {
 		return perfis.stream().map(p -> Perfil.toEnum(p)).collect(Collectors.toSet());
 	}
@@ -151,6 +152,14 @@ public class Cliente implements Serializable {
 
 	public void setPedidos(List<Pedido> pedidos) {
 		this.pedidos = pedidos;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	@Override
